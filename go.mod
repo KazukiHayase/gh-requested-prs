@@ -1,4 +1,4 @@
-module github.com/KazukiHayase/gh-open-prs
+module github.com/KazukiHayase/gh-requested-prs
 
 go 1.20
 
