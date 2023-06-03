@@ -43,7 +43,6 @@ func main() {
 	}
 
 	for _, org := range orgs {
-		fmt.Println(org)
 		if org == "" {
 			continue
 		}
