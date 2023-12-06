@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os/exec"
@@ -29,17 +30,26 @@ func main() {
 		} `graphql:"search(first: 100, query: $q, type: ISSUE)"`
 	}
 
-	orgList, _, err := gh.Exec("org", "list")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	orgs := strings.Split(orgList.String(), "\n")
-
 	filters := []string{
 		"is:pr",
 		"is:open",
 		"review-requested:@me",
+	}
+
+	var orgsArg string
+	flag.StringVar(&orgsArg, "orgs", "", "comma separated list of orgs to include")
+	flag.Parse()
+
+	var orgs []string
+	if orgsArg != "" {
+		orgs = strings.Split(orgsArg, ",")
+	} else {
+		orgList, _, err := gh.Exec("org", "list")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		orgs = strings.Split(orgList.String(), "\n")
 	}
 
 	for _, org := range orgs {
