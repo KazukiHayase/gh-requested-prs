@@ -34,6 +34,7 @@ func main() {
 		"is:pr",
 		"is:open",
 		"review-requested:@me",
+		"sort:created-asc",
 	}
 
 	var orgsArg string
